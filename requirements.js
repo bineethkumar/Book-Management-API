@@ -22,11 +22,11 @@
 //->Authors
 //We need an API 
 //to get all authors ✔
-//to get specific author
+//to get specific author ✔
 //to get list of authors based on books ✔
 
 //->Publications
 //We need an API 
-//to get all publications
-//to get specific publication
-//to get list of publication based on book
+//to get all publications ✔
+//to get specific publication ✔
+//to get list of publication based on book ✔

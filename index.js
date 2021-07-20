@@ -83,15 +83,14 @@ Methods         GET
 */
 booky.get("/author/:name",(req,res)=>{
     const getSpecificAuthor = database.author.filter((author) => 
-    author.name.includes(req.params.name)
-    );
+    author.name === req.params.name);
     if(getSpecificAuthor.length === 0){
         return res.json({error: `No author found of this name ${req.params.name}`});
     }
     return res.json({authors: getSpecificAuthor});
 });
 /*
-Route           /author/book
+Route           /author/book/(ISBN value)
 Description     Get specific author based on book ISBN
 Access          Public
 Parameter       ISBN
@@ -107,5 +106,49 @@ booky.get("/author/book/:isbn",(req,res)=>{
     return res.json({authors: getSpecificAuthor});
 });
 
+/*
+Route           /publications
+Description     Get all publications
+Access          Public
+Parameter       none
+Methods         GET
+*/
+booky.get("/publications", (req,res)=>{
+    return res.json({publications: database.publication});
+});
+
+/*
+Route           /publications
+Description     Get specific publication
+Access          Public
+Parameter       publication name
+Methods         GET
+*/
+
+booky.get("/publications/:name",(req,res)=>{
+    const getSpecificPublication = database.publication.filter((publication) => 
+    publication.name === req.params.name);
+    if(getSpecificPublication.length === 0){
+        return res.json({error: `No publication found of this name ${req.params.name}`});
+    }
+    return res.json({publications: getSpecificPublication});
+});
+
+/*
+Route           /publications/book/(ISBN value)
+Description     Get list of publications based on book
+Access          Public
+Parameter       ISBN
+Methods         GET
+*/
+booky.get("/publications/book/:isbn",(req,res)=>{
+    const getSpecificPublication = database.publication.filter((publication) => 
+    publication.books.includes(req.params.isbn)
+    );
+    if(getSpecificPublication.length === 0){
+        return res.json({error: `No publication found of this book ${req.params.isbn}`});
+    }
+    return res.json({publications: getSpecificPublication});
+});
 
 booky.listen(3000, ()=> console.log("Server is running"));
