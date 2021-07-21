@@ -29,6 +29,11 @@ const publication = [
         id: 1,
         name: "oswall",
         books: ["12345Book"],
+    },
+    {
+        id: 2,
+        name: "pearson",
+        books:[],
     }
 ];
 
