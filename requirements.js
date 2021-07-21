@@ -27,8 +27,8 @@
 //update/add new author for a book ✔
 
 //DELETE
-//delete a book
-//delete an author
+//delete a book ✔
+//delete an author from a book ✔ 
 
 //->Authors
 //GET
@@ -43,7 +43,7 @@
 //update author name using its ID ✔
 
 //DELETE
-//delete an author
+//delete an author ✔
 
 //->Publications
 //GET
@@ -59,5 +59,5 @@
 //update/add books in publication ✔
 
 //DELETE
-//delete a publication
-//delete a book from publication
+//delete a publication ✔
+//delete a book from publication ✔
