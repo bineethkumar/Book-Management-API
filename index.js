@@ -227,15 +227,21 @@ Access          Public
 Parameter       isbn
 Methods         PUT
 */
-booky.put("/book/update/title/:isbn",(req,res)=>{
-    database.books.forEach((book)=>{
-        if(book.ISBN === req.params.isbn){
-            book.title = req.body.newBookTitle;
-            return;
-        }
-    });
+booky.put("/book/update/title/:isbn", async (req,res)=>{
+    
+    const updatedTitle = await BookModels.findOneAndUpdate(
+        {ISBN : req.params.isbn},
+        {title : req.body.newBookTitle},
+        {new: true});
+    
+    // database.books.forEach((book)=>{
+    //     if(book.ISBN === req.params.isbn){
+    //         book.title = req.body.newBookTitle;
+    //         return;
+    //     }
+    // });
 
-    return res.json({books: database.books});
+    return res.json({books: updatedTitle});
 });
 
 /*
@@ -245,21 +251,50 @@ Access          Public
 Parameter       isbn
 Methods         PUT
 */
-booky.put("/book/update/author/:isbn/:authorId",(req, res)=>{
+booky.put("/book/update/author/:isbn", async(req, res)=>{
     //update book database
-    database.books.forEach((book)=>{
-        if(book.ISBN === req.params.isbn){
-            return book.author.push(parseInt(req.params.authorId));
+    const updatedBook = await BookModels.findOneAndUpdate(
+        {
+          ISBN: req.params.isbn,
+        },
+        {
+          $addToSet: {
+            authors: req.body.newAuthor,
+          },
+        },
+        {
+          new: true,
         }
-    });
+      );
+    // database.books.forEach((book)=>{
+    //     if(book.ISBN === req.params.isbn){
+    //         return book.author.push(parseInt(req.params.authorId));
+    //     }
+    // });
 
     //update author database
-    database.author.forEach((author)=>{
-        if(author.id === parseInt(req.params.authorId)){
-            return author.books.push(req.params.isbn);
-        }
+    const updatedAuthor = await AuthorModels.findOneAndUpdate(
+        {
+          id: req.body.newAuthor,
+        },
+        {
+          $addToSet: {
+            books: req.params.isbn,
+          },
+        },
+        { new: true }
+      );
+    
+    // database.author.forEach((author)=>{
+    //     if(author.id === parseInt(req.params.authorId)){
+    //         return author.books.push(req.params.isbn);
+    //     }
+    // });
+    return res.json({
+        books: updatedBook,
+        authors: updatedAuthor,
+        message: "New author was added!!",
     });
-    return res.json({books : database.books, author : database.author});
 });
 
 /*

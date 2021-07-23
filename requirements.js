@@ -23,8 +23,8 @@
 //add new book ✔ ✅
 
 //PUT
-//update book title ✔
-//update/add new author for a book ✔
+//update book title ✔ ✅
+//update/add new author for a book ✔ 
 
 //DELETE
 //delete a book ✔
