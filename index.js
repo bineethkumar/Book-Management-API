@@ -259,7 +259,7 @@ booky.put("/book/update/author/:isbn", async(req, res)=>{
         },
         {
           $addToSet: {
-            authors: req.body.newAuthor,
+            author: req.body.newAuthor,
           },
         },
         {
@@ -292,7 +292,7 @@ booky.put("/book/update/author/:isbn", async(req, res)=>{
     // });
     return res.json({
         books: updatedBook,
-        authors: updatedAuthor,
+        author: updatedAuthor,
         message: "New author was added!!",
     });
 });
